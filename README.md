@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>My GitHub Website</title>
-</head>
+</head> 
 <body>
     <h1>Hello World!</h1>
     <p>Welcome to my brand new website hosted on GitHub Pages.</p>
