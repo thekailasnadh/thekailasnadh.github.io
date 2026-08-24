@@ -1,9 +1,11 @@
 # thekailasnadh.github.io
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>first web page</title>
-  </head>
- <body>
-   <h1> kailas here<h1> 
- </body>
+<head>
+    <title>My GitHub Website</title>
+</head>
+<body>
+    <h1>Hello World!</h1>
+    <p>Welcome to my brand new website hosted on GitHub Pages.</p>
+</body>
 </html>
