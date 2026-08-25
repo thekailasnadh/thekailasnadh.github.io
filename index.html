@@ -392,6 +392,11 @@
                 setTimeout(() => {
                     const newEl = document.getElementById(`chapter-${currentChapter}`);
                     if (newEl) newEl.classList.add('active');
+                    
+                    // Initialize scratch canvas once chapter 2 is visible and rendered
+                    if (currentChapter === 2) {
+                        initScratchCanvas();
+                    }
                 }, 300);
 
                 // Update Progress UI
@@ -484,7 +489,6 @@
             ch1NextBtn.addEventListener('click', () => {
                 if (connectedStars.length === 4) {
                     goToChapter(2);
-                    initScratchCanvas();
                 }
             });
 
@@ -497,8 +501,9 @@
             let clearedPixels = 0;
 
             const initScratchCanvas = () => {
-                scratchCanvas.width = scratchCanvas.offsetWidth;
-                scratchCanvas.height = scratchCanvas.offsetHeight;
+                const parentRect = scratchCanvas.parentElement.getBoundingClientRect();
+                scratchCanvas.width = parentRect.width || scratchCanvas.offsetWidth || 300;
+                scratchCanvas.height = parentRect.height || scratchCanvas.offsetHeight || 280;
                 scratchCtx = scratchCanvas.getContext('2d');
 
                 // Fill canvas with gold/stardust texture cover
@@ -553,6 +558,7 @@
             scratchCanvas.addEventListener('touchend', () => isDrawing = false);
 
             const checkScratchProgress = () => {
+                if (!scratchCtx || scratchCanvas.width === 0 || scratchCanvas.height === 0) return;
                 // Throttle pixel checking for performance
                 if (Math.random() > 0.3) return;
                 const imgData = scratchCtx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height);
