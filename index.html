@@ -88,6 +88,72 @@
             position: relative; /* Needed for movement */
         }
 
+        /* Step Card Animation Styles */
+        .step-card {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-card.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Love Meter & Progress Dots */
+        .progress-bar-container {
+            width: 100%;
+            background-color: #fce4ec;
+            height: 10px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 20%;
+            background: linear-gradient(90deg, #ff80ab, #d81b60);
+            transition: width 0.6s ease-in-out;
+            border-radius: 10px;
+        }
+
+        /* Reason Card / Interactive Badges */
+        .reason-badge {
+            background: #fff0f5;
+            border: 1px dashed #f48fb1;
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 0.75rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .reason-badge:hover {
+            background: #fce4ec;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(216, 27, 96, 0.15);
+        }
+
+        .reason-badge .badge-secret {
+            display: none;
+            color: #c2185b;
+            font-style: italic;
+            margin-top: 0.5rem;
+        }
+
+        .reason-badge.revealed .badge-secret {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* The envelop cover screen */
         #envelope-screen {
             position: absolute;
@@ -223,7 +289,7 @@
 
     <!-- Initial Envelope Screen -->
     <div id="envelope-screen">
-        <h2 class="script-font text-3xl mb-8 text-rose-500">I have something to tell you...</h2>
+        <h2 class="script-font text-3xl mb-8 text-rose-500">I have something to tell you, my sweet Anu...</h2>
         <div class="envelope" id="envelope-btn" title="Tap to open">
             <div class="heart-icon">❤️</div>
         </div>
@@ -232,31 +298,98 @@
 
     <!-- Main Proposal Container -->
     <div id="proposal-container" class="hidden-state">
-        <h1 class="script-font text-5xl">My Dearest...</h1>
-        <p>
-            I've been trying to find the right words to say this for a while now. Every time I'm around you, my day brightens up. You have this amazing way of making everything feel special.
-        </p>
-        <p>
-            I cherish our moments together, and I find myself constantly thinking about you. I don't just want to be friends anymore. I want to be the reason behind your smile, just like you are the reason behind mine.
-        </p>
-        <p class="font-semibold text-rose-600 italic text-xl my-6">
-            Will you be mine?
-        </p>
-        
-        <div class="flex justify-center items-center gap-4 mt-8 flex-wrap">
-            <button class="btn btn-yes" id="btn-yes">Yes, a thousand times Yes! ❤️</button>
-            <button class="btn btn-no" id="btn-no">Maybe later...</button>
+        <!-- Progress & Love Meter Header -->
+        <div class="mb-4">
+            <div class="flex justify-between items-center text-xs text-rose-500 font-semibold mb-1 uppercase tracking-wider">
+                <span id="step-counter">Step 1 of 5</span>
+                <span id="meter-text">Love Meter: 20% ❤️</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- STEP 1: The Introduction -->
+        <div class="step-card active" id="step-1">
+            <div class="text-4xl mb-2">✨</div>
+            <h1 class="script-font text-4xl text-rose-600">Why You Are So Special, Anushree...</h1>
+            <p>
+                Before I ask you a very important question, my princesss, I want to take a moment to tell you how truly irreplaceable and valuable you are in my life.
+            </p>
+            <p class="text-sm text-gray-500 italic">
+                Tap below to start our journey together, my lil girl...
+            </p>
+            <button class="btn btn-yes next-btn mt-4">Begin Journey ❤️</button>
+        </div>
+
+        <!-- STEP 2: Value 1 - Her Light & Warmth -->
+        <div class="step-card" id="step-2">
+            <div class="text-4xl mb-2">🌟</div>
+            <h1 class="script-font text-4xl text-rose-600">You Light Up My World, Anu</h1>
+            <p>
+                Every time you walk into a room, my lil girl, everything feels brighter. Your laughter is my favorite sound, and your positivity carries me through even the hardest days.
+            </p>
+            <div class="reason-badge" onclick="revealSecret(this)">
+                <span class="font-semibold text-rose-700">💡 Tap to reveal a memory:</span>
+                <div class="badge-secret">"Remember when you smiled at me, Anu, and I completely lost my train of thought? That's when I knew you were my girl."</div>
+            </div>
+            <button class="btn btn-yes next-btn mt-4">Continue ✨</button>
+        </div>
+
+        <!-- STEP 3: Value 2 - Her Kind Soul -->
+        <div class="step-card" id="step-3">
+            <div class="text-4xl mb-2">🌷</div>
+            <h1 class="script-font text-4xl text-rose-600">Your Heart is Pure Gold, My Love</h1>
+            <p>
+                The gentle way you care for people, my girl, your empathy, and the unconditional kindness you show to everyone around you inspires me to be a better person every single day.
+            </p>
+            <div class="reason-badge" onclick="revealSecret(this)">
+                <span class="font-semibold text-rose-700">💌 Tap to reveal why I adore you:</span>
+                <div class="badge-secret">"You have the rarest, most beautiful heart, Anushree. Being near you feels like home."</div>
+            </div>
+            <button class="btn btn-yes next-btn mt-4">Keep Going 💖</button>
+        </div>
+
+        <!-- STEP 4: Value 3 - How She Transformed My Life -->
+        <div class="step-card" id="step-4">
+            <div class="text-4xl mb-2">🎨</div>
+            <h1 class="script-font text-4xl text-rose-600">My Favorite Chapter with My Princesss</h1>
+            <p>
+                With you, my lil girl, even simple moments turn into unforgettable adventures. You've brought color, joy, and meaning into my life in ways you might not even realize.
+            </p>
+            <div class="reason-badge" onclick="revealSecret(this)">
+                <span class="font-semibold text-rose-700">🔮 Tap to see my wish:</span>
+                <div class="badge-secret">"I don't just want moments with you, my love. I want every chapter, every season, and every tomorrow with my Anu."</div>
+            </div>
+            <button class="btn btn-yes next-btn mt-4">One Last Step... 🌹</button>
+        </div>
+
+        <!-- STEP 5: The Final Proposal -->
+        <div class="step-card" id="step-5">
+            <div class="text-5xl mb-3 animate-bounce">💍</div>
+            <h1 class="script-font text-5xl text-rose-600">My Dearest Anushree...</h1>
+            <p class="text-lg leading-relaxed">
+                Anu, you are my comfort, my favorite person, my lil girl, and my happiest thought. I don't want to go another day without my princesss knowing how deeply she is cherished.
+            </p>
+            <p class="font-semibold text-rose-600 italic text-2xl my-4">
+                Will you be my girl forever and make me the happiest person in the world?
+            </p>
+            
+            <div class="flex justify-center items-center gap-4 mt-6 flex-wrap relative min-h-[60px]">
+                <button class="btn btn-yes" id="btn-yes">Yes, a thousand times Yes! ❤️</button>
+                <button class="btn btn-no" id="btn-no">Maybe later...</button>
+            </div>
         </div>
     </div>
 
     <!-- Success Screen (Shown after saying Yes) -->
     <div id="success-screen">
-        <h1 class="script-font text-6xl text-rose-600 mb-6 animate-bounce">Yay! ❤️</h1>
+        <h1 class="script-font text-6xl text-rose-600 mb-6 animate-bounce">Yay! Anushree Said Yes! ❤️</h1>
         <p class="text-2xl text-gray-700 max-w-md text-center">
-            You just made me the happiest person! I can't wait to create more beautiful memories with you.
+            You just made me the happiest person in the world, my love! I can't wait to spend forever with you, my princesss. 🥰
         </p>
         <div class="mt-8 text-5xl">
-            🥰 🎉 💖
+            🥰 🎉 💖 👑 🌹
         </div>
     </div>
 
@@ -270,72 +403,125 @@
             const btnNo = document.getElementById('btn-no');
             const successScreen = document.getElementById('success-screen');
             const heartsBg = document.getElementById('hearts-bg');
+            const progressFill = document.getElementById('progress-fill');
+            const stepCounter = document.getElementById('step-counter');
+            const meterText = document.getElementById('meter-text');
+            const nextBtns = document.querySelectorAll('.next-btn');
+
+            let currentStep = 1;
+            const totalSteps = 5;
+
+            let audioCtx = null;
+            const playChime = (freq = 587.33) => {
+                try {
+                    if (!audioCtx) {
+                        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                    if (audioCtx.state === 'suspended') {
+                        audioCtx.resume();
+                    }
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.8);
+                } catch(e) {}
+            };
+
+            // --- Multi-Step Navigation Logic ---
+            const updateStepView = () => {
+                // Hide all cards
+                for (let i = 1; i <= totalSteps; i++) {
+                    const card = document.getElementById(`step-${i}`);
+                    if (card) card.classList.remove('active');
+                }
+                
+                // Show current active card
+                const activeCard = document.getElementById(`step-${currentStep}`);
+                if (activeCard) activeCard.classList.add('active');
+
+                // Update Progress Bar & Love Meter
+                const percentage = Math.round((currentStep / totalSteps) * 100);
+                progressFill.style.width = `${percentage}%`;
+                stepCounter.innerText = `Step ${currentStep} of ${totalSteps}`;
+                meterText.innerText = `Love Meter: ${percentage}% ❤️`;
+
+                playChime(440 + currentStep * 80);
+            };
+
+            // Attach listeners to next buttons
+            nextBtns.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    if (currentStep < totalSteps) {
+                        currentStep++;
+                        updateStepView();
+                    }
+                });
+            });
+
+            // Secret Badge Toggle Logic
+            window.revealSecret = (element) => {
+                element.classList.toggle('revealed');
+                playChime(880);
+            };
 
             // --- 1. Envelope Opening Logic ---
             envelopeBtn.addEventListener('click', () => {
-                // Step 1: Open the flap
                 envelopeBtn.classList.add('open-flap');
+                playChime(523.25);
                 
-                // Step 2: After a short delay, fade out envelope screen and show proposal
                 setTimeout(() => {
                     envelopeScreen.classList.add('opened');
                     
-                    // Small delay before showing main content for dramatic effect
                     setTimeout(() => {
                         proposalContainer.classList.remove('hidden-state');
-                        createFloatingHearts(); // Start background animation
+                        createFloatingHearts(); 
+                        updateStepView();
                     }, 500);
 
                 }, 600);
             });
 
             // --- 2. The Elusive "No" Button Logic ---
-            // Make the 'No' button run away when hovered or tapped
             const moveNoButton = () => {
-                // Calculate random position within constraints of the container
-                // We make it relative to the window to ensure it jumps far enough away
-                const containerRect = proposalContainer.getBoundingClientRect();
-                
-                // Prevent it from going off-screen entirely
                 const maxX = window.innerWidth - btnNo.offsetWidth - 20;
                 const maxY = window.innerHeight - btnNo.offsetHeight - 20;
                 
                 const randomX = Math.max(20, Math.floor(Math.random() * maxX));
                 const randomY = Math.max(20, Math.floor(Math.random() * maxY));
 
-                // Change position to fixed so it can fly anywhere on screen
                 btnNo.style.position = 'fixed';
                 btnNo.style.left = `${randomX}px`;
                 btnNo.style.top = `${randomY}px`;
                 btnNo.style.transition = 'all 0.2s ease-out';
                 
-                // Optionally change text to be cheeky
-                const cheekyTexts = ["Nice try!", "Are you sure?", "Try again!", "Catch me!", "Nope!"];
+                const cheekyTexts = ["Nice try! 😉", "Are you sure? 🥺", "Try again! ✨", "Catch me! 🏃‍♀️", "Nope! ❤️"];
                 btnNo.innerText = cheekyTexts[Math.floor(Math.random() * cheekyTexts.length)];
+                playChime(300);
             };
 
-            // Trigger movement on mouseover (desktop) or touchstart (mobile)
             btnNo.addEventListener('mouseover', moveNoButton);
             btnNo.addEventListener('touchstart', (e) => {
-                e.preventDefault(); // Prevent accidental clicking while trying to tap
+                e.preventDefault(); 
                 moveNoButton();
             });
-            // Fallback click just in case they manage to click it
             btnNo.addEventListener('click', (e) => {
                  e.preventDefault();
                  moveNoButton();
             });
 
-
             // --- 3. The "Yes" Button Logic ---
             btnYes.addEventListener('click', () => {
-                // Hide main container
+                playChime(1046.50); // High joyful chime
                 proposalContainer.style.opacity = '0';
                 
                 setTimeout(() => {
-                    // Show success screen
                     successScreen.classList.add('show');
-                    // Increase heart intensity
                     createIntenseHearts();
                 }, 500);
             });
@@ -344,13 +530,12 @@
             const createHeartElement = () => {
                 const heart = document.createElement('div');
                 heart.classList.add('floating-heart');
-                heart.innerHTML = '❤️';
+                heart.innerHTML = Math.random() > 0.3 ? '❤️' : '✨';
                 
-                // Randomize size, left position, and animation duration
-                const size = Math.random() * 1.5 + 0.5; // 0.5rem to 2rem
-                const left = Math.random() * 100; // 0% to 100%
-                const duration = Math.random() * 5 + 5; // 5s to 10s
-                const delay = Math.random() * 5; // 0s to 5s delay
+                const size = Math.random() * 1.5 + 0.5; 
+                const left = Math.random() * 100; 
+                const duration = Math.random() * 5 + 5; 
+                const delay = Math.random() * 5; 
 
                 heart.style.fontSize = `${size}rem`;
                 heart.style.left = `${left}%`;
@@ -361,17 +546,14 @@
             };
 
             const createFloatingHearts = () => {
-                // Create a moderate amount of hearts for the background
                 for (let i = 0; i < 20; i++) {
                     heartsBg.appendChild(createHeartElement());
                 }
             };
 
             const createIntenseHearts = () => {
-                // Create many more hearts for the success screen
-                for (let i = 0; i < 50; i++) {
+                for (let i = 0; i < 60; i++) {
                     const heart = createHeartElement();
-                    // Make them float faster
                     heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
                     heartsBg.appendChild(heart);
                 }
