@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anu's Universe | A Special Message For You</title>
+    <title>Princesss Anu ❤️</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Dancing+Script:wght@600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #050714;
+            background-color: #0b0d1a;
             color: #f8fafc;
             overflow-x: hidden;
             min-height: 100vh;
@@ -28,44 +28,30 @@
 
         /* Ambient Glass Card Effect */
         .glass-panel {
-            background: rgba(15, 23, 42, 0.65);
+            background: rgba(15, 23, 42, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(244, 114, 182, 0.2);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(244, 114, 182, 0.25);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
-        .glass-panel-gold {
-            background: rgba(30, 20, 40, 0.7);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(251, 191, 36, 0.3);
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.15);
+        .glass-badge {
+            background: rgba(251, 191, 36, 0.15);
+            border: 1px solid rgba(251, 191, 36, 0.4);
         }
 
-        /* Pulsing Glow Animations */
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 15px rgba(244, 114, 182, 0.4), 0 0 30px rgba(216, 27, 96, 0.2); }
-            50% { box-shadow: 0 0 25px rgba(244, 114, 182, 0.8), 0 0 50px rgba(216, 27, 96, 0.5); }
+        /* Floating animations */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(3deg); }
         }
 
-        .glow-heart {
-            animation: pulseGlow 2.5s infinite ease-in-out;
+        .float-paper {
+            animation: floatSlow 4s ease-in-out infinite;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #050714;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #f472b6;
-            border-radius: 10px;
-        }
-
-        /* Canvas Overlay Fix */
-        #star-canvas {
+        /* Canvas overlay */
+        #fx-canvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -75,699 +61,315 @@
             z-index: 1;
         }
 
-        /* Constellation Node Styling */
-        .star-node {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
         }
-        .star-node:hover {
-            transform: scale(1.25);
-            filter: drop-shadow(0 0 12px #f472b6);
+        ::-webkit-scrollbar-track {
+            background: #0b0d1a;
         }
-
-        /* Section visibility transitions */
-        .chapter-section {
-            display: none;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .chapter-section.active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
+        ::-webkit-scrollbar-thumb {
+            background: #f472b6;
+            border-radius: 10px;
         }
     </style>
 </head>
 <body class="relative flex flex-col justify-between min-h-screen">
 
-    <canvas id="star-canvas"></canvas>
+    <canvas id="fx-canvas"></canvas>
 
     <!-- Audio Ambient Controller -->
     <button id="audio-toggle" class="fixed top-5 right-5 z-50 p-3 rounded-full glass-panel text-pink-300 hover:text-white transition-all flex items-center space-x-2 text-xs tracking-widest uppercase">
-        <span id="audio-icon">🎵</span>
+        <span id="audio-icon">🔇</span>
         <span id="audio-text">Sound: OFF</span>
     </button>
 
-    <!-- Navigation Header / Progress -->
-    <header class="relative z-10 pt-6 px-4 text-center">
-        <div class="inline-block px-4 py-1 rounded-full glass-panel text-xs tracking-widest uppercase text-pink-300/80 mb-2 font-mono">
-            Chapter <span id="chapter-num">1</span> of 4 — <span id="chapter-title">Constellations</span>
+    <!-- Header / Title -->
+    <header class="relative z-10 pt-8 px-4 text-center">
+        <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-badge text-xs tracking-widest uppercase text-amber-300 font-mono mb-3">
+            <span>⚖️ Case #2026-ANU</span>
+            <span>•</span>
+            <span>Supreme Court of Love</span>
         </div>
-        <div class="w-48 mx-auto h-1 bg-slate-800 rounded-full overflow-hidden">
-            <div id="progress-bar" class="h-full bg-gradient-to-r from-pink-500 to-amber-400 w-1/4 transition-all duration-700"></div>
-        </div>
+        <h1 class="font-serif-title text-3xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-200 to-amber-300">
+            Welcome to Cupid Court<br>Official Apology to Princesss Anu
+        </h1>
     </header>
 
-    <!-- Main Dynamic Content Container -->
+    <!-- Main Content Container -->
     <main class="relative z-10 flex-grow flex items-center justify-center p-4 md:p-8">
+        <div class="max-w-2xl w-full">
 
-        <!-- CHAPTER 0: THE GATEWAY (Intro Splash) -->
-        <div id="chapter-0" class="chapter-section active max-w-lg w-full text-center">
-            <div class="glass-panel p-8 md:p-12 rounded-3xl relative overflow-hidden">
-                <div class="absolute -top-10 -left-10 w-32 h-32 bg-pink-500/10 rounded-full blur-2xl"></div>
-                <div class="absolute -bottom-10 -right-10 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl"></div>
-                
-                <div class="text-5xl mb-6 inline-block animate-bounce">✨</div>
-                <h1 class="font-serif-title text-3xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-200 to-amber-200 mb-4">
-                    Anushree's Celestial Journey
-                </h1>
-                <p class="text-slate-300 text-sm md:text-base leading-relaxed mb-8">
-                    Anu, I didn't want to make just another ordinary web page. I wanted to build a little universe crafted entirely for <span class="text-pink-300 font-semibold">my princesss</span>. 
-                </p>
-                
-                <button id="start-btn" class="w-full py-4 rounded-full bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white font-semibold text-sm tracking-wider uppercase transition-all shadow-lg hover:shadow-pink-500/30 transform hover:-translate-y-0.5 glow-heart">
-                    Enter Our Universe 🌌
-                </button>
-            </div>
-        </div>
+            <!-- STEP 1: THE ACCUSATION / INCIDENT REPORT -->
+            <div id="step-1" class="glass-panel p-6 md:p-10 rounded-3xl text-center space-y-6">
+                <div class="float-paper text-6xl inline-block">📄✈️</div>
 
-        <!-- CHAPTER 1: THE CONSTELLATION OF ANU -->
-        <div id="chapter-1" class="chapter-section max-w-2xl w-full text-center">
-            <div class="glass-panel p-6 md:p-10 rounded-3xl">
-                <h2 class="font-serif-title text-2xl md:text-3xl text-rose-300 mb-2">Connect My Favorite Things About You</h2>
-                <p class="text-slate-400 text-xs md:text-sm mb-6">Tap the stars to connect the constellation of <span class="text-pink-300 italic">my girl</span>...</p>
-
-                <!-- Interactive Star Map Canvas Box -->
-                <div class="relative w-full h-72 md:h-80 bg-slate-950/80 rounded-2xl border border-pink-500/20 overflow-hidden mb-6 flex items-center justify-center" id="constellation-box">
-                    <svg id="constellation-svg" class="absolute inset-0 w-full h-full pointer-events-none">
-                        <!-- Lines connecting stars will be injected dynamically -->
-                    </svg>
-                    
-                    <!-- Interactive Star Nodes -->
-                    <button class="star-node absolute top-16 left-12 md:left-20 flex flex-col items-center group" data-star="1" data-title="Your Warmth & Light" data-text="Every time you laugh, my lil girl, the whole world seems to turn bright and cozy.">
-                        <div class="w-10 h-10 rounded-full bg-amber-400/20 border-2 border-amber-300 flex items-center justify-center text-amber-200 text-lg shadow-lg shadow-amber-500/30 group-hover:bg-amber-400 group-hover:text-slate-900 transition-all">✨</div>
-                        <span class="text-[10px] tracking-widest text-amber-300 uppercase mt-1">My Princesss</span>
-                    </button>
-
-                    <button class="star-node absolute top-10 right-14 md:right-24 flex flex-col items-center group" data-star="2" data-title="Your Kind Soul" data-text="Your gentle empathy and how deeply you care for people inspires me every single day.">
-                        <div class="w-10 h-10 rounded-full bg-pink-400/20 border-2 border-pink-300 flex items-center justify-center text-pink-200 text-lg shadow-lg shadow-pink-500/30 group-hover:bg-pink-400 group-hover:text-slate-900 transition-all">🌷</div>
-                        <span class="text-[10px] tracking-widest text-pink-300 uppercase mt-1">My Lil Girl</span>
-                    </button>
-
-                    <button class="star-node absolute bottom-12 left-20 md:left-36 flex flex-col items-center group" data-star="3" data-title="Your Precious Presence" data-text="Being next to you feels like coming home. You are my safest and sweetest space.">
-                        <div class="w-10 h-10 rounded-full bg-rose-400/20 border-2 border-rose-300 flex items-center justify-center text-rose-200 text-lg shadow-lg shadow-rose-500/30 group-hover:bg-rose-400 group-hover:text-slate-900 transition-all">👑</div>
-                        <span class="text-[10px] tracking-widest text-rose-300 uppercase mt-1">My Love</span>
-                    </button>
-
-                    <button class="star-node absolute bottom-16 right-16 md:right-28 flex flex-col items-center group" data-star="4" data-title="Our Shared Future" data-text="Life turned into a beautiful adventure the moment you stepped into it, my Anu.">
-                        <div class="w-10 h-10 rounded-full bg-purple-400/20 border-2 border-purple-300 flex items-center justify-center text-purple-200 text-lg shadow-lg shadow-purple-500/30 group-hover:bg-purple-400 group-hover:text-slate-900 transition-all">💎</div>
-                        <span class="text-[10px] tracking-widest text-purple-300 uppercase mt-1">Anu</span>
-                    </button>
+                <div class="space-y-2">
+                    <h2 class="font-serif-title text-2xl text-rose-300">The "Paper Attack" Incident Report</h2>
+                    <p class="text-xs text-amber-300/80 font-mono">Defendant: Me | Plaintiff: My Lil Girl (Anushree)</p>
                 </div>
 
-                <!-- Star Card Reveal Display -->
-                <div id="star-detail-card" class="min-h-[90px] p-4 rounded-xl bg-slate-900/60 border border-slate-700/50 text-left transition-all flex flex-col justify-center">
-                    <p class="text-xs text-pink-400 uppercase tracking-widest font-semibold" id="star-card-title">Tap a star node above</p>
-                    <p class="text-slate-300 text-sm mt-1" id="star-card-text">Discover what makes my girl so completely irreplaceable to me...</p>
+                <div class="bg-slate-900/80 p-5 rounded-2xl border border-rose-500/20 text-left text-sm text-slate-300 space-y-3 font-light leading-relaxed">
+                    <p>
+                        <strong class="text-pink-300">Charge:</strong> Unlawful projection of a folded paper toward Her Royal Adorableness, <span class="text-amber-200 font-semibold">Anushree</span>.
+                    </p>
+                    <p>
+                        <strong class="text-pink-300">Plaintiff Statement:</strong> <em>"Oh, you threw paper towards me... you tried to attack me!"</em> 🥺
+                    </p>
+                    <p>
+                        <strong class="text-pink-300">Defendant Plea:</strong> Feeling guilty about throwing that small Tissue paper. It was an Intentional move to draw your Attention , cuz you were looking stunning and Adorable. it wasnt to hurt my girl.
                 </div>
 
-                <button id="ch1-next" disabled class="mt-6 w-full py-3 rounded-full bg-slate-800 text-slate-500 font-semibold text-xs tracking-wider uppercase transition-all cursor-not-allowed">
-                    Connect All Stars to Continue (0/4)
+                <button id="to-step-2" class="w-full py-4 rounded-full bg-gradient-to-r from-pink-500 to-rose-600 text-white font-semibold text-xs tracking-widest uppercase shadow-lg hover:shadow-pink-500/30 transition-all hover:scale-[1.02] active:scale-95">
+                    View Court Evidence (How CUTE You Looked Today) ✨
                 </button>
             </div>
-        </div>
 
-        <!-- CHAPTER 2: THE STARDUST SCRATCH LETTER -->
-        <div id="chapter-2" class="chapter-section max-w-xl w-full text-center">
-            <div class="glass-panel p-6 md:p-8 rounded-3xl">
-                <h2 class="font-serif-title text-2xl text-amber-300 mb-1">Clear the Stardust for Anu</h2>
-                <p class="text-slate-400 text-xs mb-4">Drag your finger or mouse across the canvas below to reveal a letter for my princesss...</p>
+            <!-- STEP 2: THE COMPLIMENT EXHIBITS -->
+            <div id="step-2" class="glass-panel p-6 md:p-10 rounded-3xl text-center space-y-6 hidden">
+                <div class="text-4xl inline-block">🔍✨</div>
+                
+                <h2 class="font-serif-title text-2xl text-amber-300">Exhibit A: The Defense Evidence</h2>
+                <p class="text-xs text-slate-400">Why the defendant was so distracted and acted silly today...</p>
 
-                <div class="relative w-full h-72 rounded-2xl overflow-hidden shadow-2xl border border-amber-500/30">
-                    <!-- The Hidden Handwritten Message Beneath -->
-                    <div class="absolute inset-0 bg-gradient-to-br from-rose-950 via-slate-900 to-purple-950 p-6 flex flex-col justify-center items-center text-center">
-                        <p class="font-handwriting text-2xl md:text-3xl text-rose-200 leading-relaxed">
-                            "Anu, every single day spent knowing you feels like a gift. You are my comfort, my favorite thought, and my sweetest dream."
+                <!-- Interactive Compliment Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-4 rounded-2xl bg-slate-900/70 border border-pink-500/30 flex flex-col items-center justify-center space-y-2 hover:border-pink-400 transition-all group">
+                        <span class="text-3xl group-hover:scale-125 transition-transform">👑</span>
+                        <h3 class="text-xs font-bold text-pink-300 uppercase tracking-wider">My Baddie</h3>
+                        <p class="text-[11px] text-slate-300 leading-snug">
+                            You my baddie, if i didnt mess with you , whom i can do? eh? eh? (You My own Baddie💌)
                         </p>
-                        <span class="mt-4 text-xs font-serif-title text-amber-300/80 tracking-widest uppercase">— Forever Yours, My Love</span>
                     </div>
 
-                    <!-- Scratchable Dust Canvas -->
-                    <canvas id="scratch-canvas" class="absolute inset-0 w-full h-full cursor-pointer z-10"></canvas>
+                    <div class="p-4 rounded-2xl bg-slate-900/70 border border-amber-500/30 flex flex-col items-center justify-center space-y-2 hover:border-amber-400 transition-all group">
+                        <span class="text-3xl group-hover:scale-125 transition-transform">🌸</span>
+                        <h3 class="text-xs font-bold text-amber-300 uppercase tracking-wider">Cute & Adorable</h3>
+                        <p class="text-[11px] text-slate-300 leading-snug">
+                            You were looking soo cute and ofc adorable too, i wanted to look at you always. just threw that paper cuz i wanted to steal your attention. (my own cute girl✨)
+                        </p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-slate-900/70 border border-rose-500/30 flex flex-col items-center justify-center space-y-2 hover:border-rose-400 transition-all group">
+                        <span class="text-3xl group-hover:scale-125 transition-transform">💖</span>
+                        <h3 class="text-xs font-bold text-rose-300 uppercase tracking-wider">My Favorite one </h3>
+                        <p class="text-[11px] text-slate-300 leading-snug">
+                            You my fav one , you made my day. Felt so lucky while you were beside me at the shop while we took video of them. (YOU MINE🫵)
+                        </p>
+                    </div>
                 </div>
 
-                <div class="flex items-center justify-between mt-4 px-2">
-                    <span class="text-xs text-slate-400">Revealed: <span id="scratch-percent" class="text-amber-300 font-mono">0%</span></span>
-                    <button id="ch2-next" disabled class="py-2.5 px-6 rounded-full bg-slate-800 text-slate-500 font-semibold text-xs tracking-wider uppercase transition-all cursor-not-allowed">
-                        Wipe 40% To Continue ✨
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- CHAPTER 3: LANTERNS OF PROMISES -->
-        <div id="chapter-3" class="chapter-section max-w-xl w-full text-center">
-            <div class="glass-panel p-6 md:p-8 rounded-3xl">
-                <h2 class="font-serif-title text-2xl text-pink-300 mb-2">Release Our Promise Lanterns</h2>
-                <p class="text-slate-400 text-xs mb-6">Tap each lantern to send my promises into the sky for <span class="text-rose-300 font-semibold">my lil girl</span>...</p>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <button class="lantern-btn p-4 rounded-2xl glass-panel-gold flex flex-col items-center justify-center space-y-2 hover:scale-105 transition-all group" data-promise="I promise to always listen to you with all my heart and protect your happiness.">
-                        <div class="text-3xl transform group-hover:-translate-y-2 transition-transform">🏮</div>
-                        <span class="text-xs font-semibold text-amber-200">Promise of Comfort</span>
-                        <span class="text-[10px] text-slate-400">Tap to release</span>
-                    </button>
-
-                    <button class="lantern-btn p-4 rounded-2xl glass-panel-gold flex flex-col items-center justify-center space-y-2 hover:scale-105 transition-all group" data-promise="I promise to stand by you through every storm and celebrate every victory with you.">
-                        <div class="text-3xl transform group-hover:-translate-y-2 transition-transform">🏮</div>
-                        <span class="text-xs font-semibold text-amber-200">Promise of Loyalty</span>
-                        <span class="text-[10px] text-slate-400">Tap to release</span>
-                    </button>
-
-                    <button class="lantern-btn p-4 rounded-2xl glass-panel-gold flex flex-col items-center justify-center space-y-2 hover:scale-105 transition-all group" data-promise="I promise to cherish you, adore you, and love you more with every passing sunset.">
-                        <div class="text-3xl transform group-hover:-translate-y-2 transition-transform">🏮</div>
-                        <span class="text-xs font-semibold text-amber-200">Promise of Forever</span>
-                        <span class="text-[10px] text-slate-400">Tap to release</span>
-                    </button>
-                </div>
-
-                <div id="lantern-quote-box" class="min-h-[70px] p-4 rounded-xl bg-slate-900/60 border border-amber-500/20 text-center flex items-center justify-center">
-                    <p class="text-xs text-amber-300 italic" id="lantern-quote-text">Click on any lantern to launch it into our sky...</p>
-                </div>
-
-                <button id="ch3-next" disabled class="mt-6 w-full py-3 rounded-full bg-slate-800 text-slate-500 font-semibold text-xs tracking-wider uppercase transition-all cursor-not-allowed">
-                    Release All 3 Lanterns (0/3)
+                <button id="to-step-3" class="w-full py-4 rounded-full bg-gradient-to-r from-amber-400 to-rose-500 text-slate-950 font-bold text-xs tracking-widest uppercase shadow-lg hover:shadow-amber-500/30 transition-all hover:scale-[1.02] active:scale-95">
+                    Unfold My Written Apology Note 💌
                 </button>
             </div>
-        </div>
 
-        <!-- CHAPTER 4: THE ULTIMATE PROPOSAL -->
-        <div id="chapter-4" class="chapter-section max-w-xl w-full text-center">
-            <div class="glass-panel p-8 md:p-10 rounded-3xl relative overflow-hidden border-2 border-pink-500/40 shadow-2xl shadow-pink-500/20">
-                
-                <div class="text-6xl mb-4 inline-block animate-pulse">💍</div>
-                <h1 class="font-serif-title text-3xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-300 to-amber-200 mb-3">
-                    Dearest Anushree...
-                </h1>
-                
-                <p class="text-slate-300 text-sm md:text-base leading-relaxed mb-6 font-light">
-                    Out of billions of people in this world, my heart chose you. You are my princesss, my lil girl, my love, and my absolute favorite human. 
-                </p>
+            <!-- STEP 3: THE HEARTFELT APOLOGY NOTE -->
+            <div id="step-3" class="glass-panel p-6 md:p-10 rounded-3xl text-center space-y-6 hidden">
+                <div class="text-5xl inline-block animate-bounce">💌</div>
 
-                <p class="font-handwriting text-3xl md:text-4xl text-rose-300 mb-8">
-                    Will you be my girl forever and make me the luckiest person in existence?
-                </p>
+                <h2 class="font-serif-title text-2xl text-pink-300">A Letter for My Princesss</h2>
 
-                <!-- Interactive Hold-To-Say-YES Button -->
-                <div class="relative max-w-xs mx-auto mb-6">
-                    <button id="hold-yes-btn" class="w-full py-4 rounded-full bg-gradient-to-r from-pink-600 via-rose-600 to-amber-500 text-white font-bold text-sm tracking-widest uppercase shadow-xl hover:shadow-pink-500/40 transition-all relative overflow-hidden group select-none touch-none">
-                        <span class="relative z-10 flex items-center justify-center space-x-2">
-                            <span>Hold to Say YES ❤️</span>
-                        </span>
-                        <!-- Progress Fill overlay -->
-                        <div id="hold-progress" class="absolute top-0 left-0 bottom-0 bg-white/30 w-0 transition-all duration-75"></div>
+                <div class="bg-gradient-to-br from-rose-950/60 via-slate-900/80 to-purple-950/60 p-6 md:p-8 rounded-2xl border border-pink-500/40 text-center space-y-4 shadow-inner">
+                    <p class="font-handwriting text-2xl md:text-3xl text-rose-200 leading-relaxed">
+                        "My Anu, <br>
+                        I am really sorry for being like that, that i threw a paper at you. But all i did was just to steal your attention, so that i can adore you more , and i liked when you looked at me and made a sharp look which you did something with your eyes to control me. I will never hurt you again like that , and i will assure you with the best Princess treatment i can give you in my life. Nevertheless, whom am i to throw you? to that adorable face? to that sharp eyes? to my Art which i love the most? . I will continue throwing , but with the love, with loving talks, with waking you early , with listening to your yaps , with being with you! 
+                    </p>
+                    <span class="block text-xs font-serif-title text-amber-300 tracking-widest uppercase pt-2">— Yours Truly, Forever & Always Your Boy ❤️</span>
+                </div>
+
+                <div class="pt-2">
+                    <button id="to-step-4" class="w-full py-4 rounded-full bg-gradient-to-r from-pink-600 via-rose-600 to-amber-500 text-white font-bold text-xs tracking-widest uppercase shadow-xl hover:shadow-pink-500/40 transition-all hover:scale-[1.02] active:scale-95">
+                        Deliver Your Verdict, Anu ⚖️
                     </button>
-                    <p class="text-[10px] text-slate-400 mt-2 tracking-widest uppercase">Press & hold down for 2 seconds</p>
                 </div>
+            </div>
 
-                <!-- Reassuring secondary action instead of cheap dodge -->
-                <button id="gentle-maybe-btn" class="text-xs text-slate-400 hover:text-pink-300 underline transition-colors">
-                    I need a quick warm hug first... 🥺
-                </button>
-                <p id="maybe-response" class="text-xs text-rose-300 mt-2 hidden italic">
-                    "Take all the time you need, Anu. My heart is right here waiting for my princesss."
+            <!-- STEP 4: THE VERDICT & FORGIVENESS -->
+            <div id="step-4" class="glass-panel p-8 md:p-10 rounded-3xl text-center space-y-6 hidden">
+                <div class="text-6xl inline-block animate-pulse">👑</div>
+
+                <h2 class="font-serif-title text-3xl text-amber-300">Will You Forgive Me, My Love?</h2>
+                <p class="text-xs text-slate-300">Choose your royal verdict for the defendant:</p>
+
+                <div class="space-y-4 max-w-md mx-auto pt-2">
+                    <button id="forgive-full-btn" class="w-full py-4 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-xs tracking-widest uppercase shadow-lg hover:shadow-emerald-500/30 transition-all hover:scale-105 active:scale-95 flex items-center justify-center space-x-2">
+                        <span>✅ Case Dismissed: Fully Forgiven + Hug Granted</span>
+                    </button>
+
+                    <button id="forgive-fine-btn" class="w-full py-4 rounded-full bg-slate-800 border border-amber-400/50 text-amber-300 font-bold text-xs tracking-widest uppercase hover:bg-slate-700 transition-all hover:scale-105 active:scale-95">
+                        <span>🍩 Forgiven, But I Owe You a flower next time</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STEP 5: CELEBRATION / CASE CLOSED -->
+            <div id="step-5" class="glass-panel p-8 md:p-12 rounded-3xl text-center space-y-6 hidden border-2 border-pink-400/50 shadow-2xl shadow-pink-500/20">
+                <div class="text-6xl inline-block animate-bounce">💖 🎉 👑</div>
+
+                <h2 class="font-serif-title text-3xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-200 to-amber-300">
+                   Youuu my Anu!
+                </h2>
+
+                <p class="font-handwriting text-2xl md:text-3xl text-rose-200 leading-relaxed">
+                    Thank you for forgiving me! my lil girl! I will be gentle with you next time, like my babie (you are).
                 </p>
-            </div>
-        </div>
 
-        <!-- GRAND FINALE: CELEBRATION OVERLAY -->
-        <div id="finale-screen" class="fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-xl flex flex-col items-center justify-center p-6 text-center opacity-0 pointer-events-none transition-opacity duration-1000">
-            <div class="text-6xl mb-4 animate-bounce">💖 🎉 👑</div>
-            <h1 class="font-serif-title text-4xl md:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-rose-200 to-amber-300 mb-4">
-                Anushree Said YES!
-            </h1>
-            <p class="font-handwriting text-3xl md:text-4xl text-rose-300 max-w-md mb-8">
-                You just made me the happiest person in the whole wide world, my love!
-            </p>
-
-            <div class="glass-panel-gold p-6 rounded-2xl max-w-md w-full mb-8 text-left space-y-3 border border-amber-400/40">
-                <div class="flex justify-between items-center text-xs text-amber-300 font-mono border-b border-amber-500/20 pb-2">
-                    <span>Eternity Certificate</span>
-                    <span>Stamped in the Stars ✨</span>
+                <div class="p-4 rounded-xl bg-slate-900/80 border border-amber-400/30 text-xs text-amber-200 font-mono max-w-sm mx-auto space-y-1">
+                    <p><strong>Verdict:</strong> FORGIVEN ❤️</p>
+                    <p><strong>Defendant Status:</strong> Released on good behavior</p>
+                    <p><strong>Next Action:</strong> Giving Anu lots of love</p>
                 </div>
-                <p class="text-slate-200 text-sm"><strong>Partners:</strong> Me & Anushree ("Anu")</p>
-                <p class="text-slate-200 text-sm"><strong>Status:</strong> Officially My Girl Forever</p>
-                <p class="text-slate-200 text-sm"><strong>Titles Granted:</strong> My Princesss, My Lil Girl, My Love</p>
+
+                <button onclick="window.location.reload()" class="px-8 py-3 rounded-full bg-slate-800 border border-pink-500/30 text-pink-300 text-xs tracking-widest uppercase hover:bg-slate-700 transition-all">
+                    Replay Case File 📜
+                </button>
             </div>
 
-            <button onclick="window.location.reload()" class="px-8 py-3 rounded-full bg-slate-800 border border-pink-500/30 text-pink-300 text-xs tracking-widest uppercase hover:bg-slate-700 transition-all">
-                Replay Our Story 🌌
-            </button>
         </div>
-
     </main>
+
+    <!-- Footer -->
+    <footer class="relative z-10 pb-6 text-center text-slate-500 text-xs font-mono">
+        Made with ❤️ for Anushree ("Anu", My Princesss, My Lil Girl)
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            let currentChapter = 0;
-            const totalChapters = 4;
-            
-            // Elements
-            const chapterNumEl = document.getElementById('chapter-num');
-            const chapterTitleEl = document.getElementById('chapter-title');
-            const progressBar = document.getElementById('progress-bar');
-            
-            const titles = ["Welcome", "Constellations", "Stardust Letter", "Promises", "Forever"];
-
-            // --- 1. WEB AUDIO API SYNTHESIZER (No external audio files required) ---
+            // Audio System
             let audioCtx = null;
             let isMuted = true;
-            let ambientOsc = null;
 
             const audioToggleBtn = document.getElementById('audio-toggle');
             const audioIcon = document.getElementById('audio-icon');
             const audioText = document.getElementById('audio-text');
 
             const initAudio = () => {
-                if (!audioCtx) {
-                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                }
-                if (audioCtx.state === 'suspended') {
-                    audioCtx.resume();
-                }
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
             };
 
-            const playSparkleChime = (freq = 587.33, type = 'sine') => {
+            const playSound = (freq = 523.25) => {
                 if (isMuted) return;
                 try {
                     initAudio();
                     const osc = audioCtx.createOscillator();
                     const gain = audioCtx.createGain();
-                    osc.type = type;
+                    osc.type = 'sine';
                     osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
                     gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 1.2);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.8);
                     osc.connect(gain);
                     gain.connect(audioCtx.destination);
                     osc.start();
-                    osc.stop(audioCtx.currentTime + 1.2);
+                    osc.stop(audioCtx.currentTime + 0.8);
                 } catch(e){}
             };
 
-            const toggleAudio = () => {
+            audioToggleBtn.addEventListener('click', () => {
                 initAudio();
                 isMuted = !isMuted;
-                if (isMuted) {
-                    audioIcon.innerText = "🔇";
-                    audioText.innerText = "Sound: OFF";
-                } else {
-                    audioIcon.innerText = "🎵";
-                    audioText.innerText = "Sound: ON";
-                    playSparkleChime(880);
+                audioIcon.innerText = isMuted ? "🔇" : "🎵";
+                audioText.innerText = isMuted ? "Sound: OFF" : "Sound: ON";
+                if (!isMuted) playSound(659.25);
+            });
+
+            // Step Navigation System
+            const showStep = (stepNumber) => {
+                for (let i = 1; i <= 5; i++) {
+                    const el = document.getElementById(`step-${i}`);
+                    if (el) el.classList.add('hidden');
                 }
+                const currentEl = document.getElementById(`step-${stepNumber}`);
+                if (currentEl) currentEl.classList.remove('hidden');
+                playSound(400 + stepNumber * 100);
             };
 
-            audioToggleBtn.addEventListener('click', toggleAudio);
+            document.getElementById('to-step-2').addEventListener('click', () => showStep(2));
+            document.getElementById('to-step-3').addEventListener('click', () => showStep(3));
+            document.getElementById('to-step-4').addEventListener('click', () => showStep(4));
 
-            // --- 2. CHAPTER NAVIGATION SYSTEM ---
-            const goToChapter = (chapIndex) => {
-                // Hide active chapter
-                const currentEl = document.getElementById(`chapter-${currentChapter}`);
-                if (currentEl) currentEl.classList.remove('active');
-
-                currentChapter = chapIndex;
-                
-                // Show new chapter
-                setTimeout(() => {
-                    const newEl = document.getElementById(`chapter-${currentChapter}`);
-                    if (newEl) newEl.classList.add('active');
-                    
-                    // Initialize scratch canvas once chapter 2 is visible and rendered
-                    if (currentChapter === 2) {
-                        initScratchCanvas();
-                    }
-                }, 300);
-
-                // Update Progress UI
-                if (currentChapter > 0) {
-                    chapterNumEl.innerText = currentChapter;
-                    chapterTitleEl.innerText = titles[currentChapter];
-                    progressBar.style.width = `${(currentChapter / totalChapters) * 100}%`;
-                }
-
-                playSparkleChime(440 + currentChapter * 100);
-            };
-
-            document.getElementById('start-btn').addEventListener('click', () => {
-                initAudio();
-                if (isMuted) toggleAudio(); // Automatically enable music on start if desired
-                goToChapter(1);
+            // Forgiveness Buttons
+            document.getElementById('forgive-full-btn').addEventListener('click', () => {
+                showStep(5);
+                triggerHearts();
             });
 
-            // --- CHAPTER 1: CONSTELLATION LOGIC ---
-            const starNodes = document.querySelectorAll('.star-node');
-            const svg = document.getElementById('constellation-svg');
-            const starCardTitle = document.getElementById('star-card-title');
-            const starCardText = document.getElementById('star-card-text');
-            const ch1NextBtn = document.getElementById('ch1-next');
-
-            let connectedStars = [];
-            let starPositions = {};
-
-            // Record star positions for lines
-            const updateStarPositions = () => {
-                starNodes.forEach(node => {
-                    const id = node.getAttribute('data-star');
-                    const rect = node.getBoundingClientRect();
-                    const boxRect = document.getElementById('constellation-box').getBoundingClientRect();
-                    starPositions[id] = {
-                        x: rect.left - boxRect.left + rect.width / 2,
-                        y: rect.top - boxRect.top + rect.height / 2
-                    };
-                });
-            };
-
-            setTimeout(updateStarPositions, 500);
-            window.addEventListener('resize', updateStarPositions);
-
-            starNodes.forEach(node => {
-                node.addEventListener('click', () => {
-                    updateStarPositions();
-                    const id = node.getAttribute('data-star');
-                    const title = node.getAttribute('data-title');
-                    const text = node.getAttribute('data-text');
-
-                    // Highlight node
-                    node.querySelector('div').classList.add('bg-pink-400', 'text-slate-900', 'scale-110');
-
-                    // Detail text update
-                    starCardTitle.innerText = title;
-                    starCardText.innerText = text;
-
-                    playSparkleChime(600 + id * 120);
-
-                    if (!connectedStars.includes(id)) {
-                        connectedStars.push(id);
-                        
-                        // Draw SVG Line to previous star
-                        if (connectedStars.length > 1) {
-                            const prevId = connectedStars[connectedStars.length - 2];
-                            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                            line.setAttribute('x1', starPositions[prevId].x);
-                            line.setAttribute('y1', starPositions[prevId].y);
-                            line.setAttribute('x2', starPositions[id].x);
-                            line.setAttribute('y2', starPositions[id].y);
-                            line.setAttribute('stroke', '#f472b6');
-                            line.setAttribute('stroke-width', '2');
-                            line.setAttribute('stroke-dasharray', '4');
-                            line.setAttribute('class', 'animate-pulse');
-                            svg.appendChild(line);
-                        }
-                    }
-
-                    // Check completeness
-                    ch1NextBtn.innerText = `Connected (${connectedStars.length}/4 Stars)`;
-                    if (connectedStars.length === 4) {
-                        ch1NextBtn.disabled = false;
-                        ch1NextBtn.className = "mt-6 w-full py-3 rounded-full bg-gradient-to-r from-pink-500 to-rose-600 text-white font-semibold text-xs tracking-wider uppercase transition-all shadow-lg hover:shadow-pink-500/30 glow-heart cursor-pointer";
-                        ch1NextBtn.innerText = "Constellation Complete — Continue ✨";
-                    }
-                });
+            document.getElementById('forgive-fine-btn').addEventListener('click', () => {
+                showStep(5);
+                triggerHearts();
             });
 
-            ch1NextBtn.addEventListener('click', () => {
-                if (connectedStars.length === 4) {
-                    goToChapter(2);
-                }
-            });
-
-            // --- CHAPTER 2: SCRATCH CANVAS LOGIC ---
-            const scratchCanvas = document.getElementById('scratch-canvas');
-            const scratchPercentEl = document.getElementById('scratch-percent');
-            const ch2NextBtn = document.getElementById('ch2-next');
-            let scratchCtx = null;
-            let isDrawing = false;
-            let clearedPixels = 0;
-
-            const initScratchCanvas = () => {
-                const parentRect = scratchCanvas.parentElement.getBoundingClientRect();
-                scratchCanvas.width = parentRect.width || scratchCanvas.offsetWidth || 300;
-                scratchCanvas.height = parentRect.height || scratchCanvas.offsetHeight || 280;
-                scratchCtx = scratchCanvas.getContext('2d');
-
-                // Fill canvas with gold/stardust texture cover
-                const grad = scratchCtx.createLinearGradient(0, 0, scratchCanvas.width, scratchCanvas.height);
-                grad.addColorStop(0, '#1e1b4b');
-                grad.addColorStop(0.5, '#312e81');
-                grad.addColorStop(1, '#4c1d95');
-                scratchCtx.fillStyle = grad;
-                scratchCtx.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
-
-                // Add stardust specs
-                scratchCtx.fillStyle = '#fbbf24';
-                for (let i = 0; i < 90; i++) {
-                    scratchCtx.beginPath();
-                    scratchCtx.arc(Math.random() * scratchCanvas.width, Math.random() * scratchCanvas.height, Math.random() * 2, 0, Math.PI * 2);
-                    scratchCtx.fill();
-                }
-
-                scratchCtx.fillStyle = '#ffffff';
-                scratchCtx.font = '14px Plus Jakarta Sans';
-                scratchCtx.textAlign = 'center';
-                scratchCtx.fillText('✨ Swipe to wipe away stardust ✨', scratchCanvas.width / 2, scratchCanvas.height / 2);
-            };
-
-            const scratch = (x, y) => {
-                if (!scratchCtx) return;
-                scratchCtx.globalCompositeOperation = 'destination-out';
-                scratchCtx.beginPath();
-                scratchCtx.arc(x, y, 25, 0, Math.PI * 2);
-                scratchCtx.fill();
-
-                playSparkleChime(1200, 'triangle');
-                checkScratchProgress();
-            };
-
-            const getCanvasCoords = (e) => {
-                const rect = scratchCanvas.getBoundingClientRect();
-                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-                return {
-                    x: clientX - rect.left,
-                    y: clientY - rect.top
-                };
-            };
-
-            scratchCanvas.addEventListener('mousedown', (e) => { isDrawing = true; const c = getCanvasCoords(e); scratch(c.x, c.y); });
-            scratchCanvas.addEventListener('mousemove', (e) => { if (isDrawing) { const c = getCanvasCoords(e); scratch(c.x, c.y); } });
-            scratchCanvas.addEventListener('mouseup', () => isDrawing = false);
-
-            scratchCanvas.addEventListener('touchstart', (e) => { isDrawing = true; const c = getCanvasCoords(e); scratch(c.x, c.y); });
-            scratchCanvas.addEventListener('touchmove', (e) => { if (isDrawing) { const c = getCanvasCoords(e); scratch(c.x, c.y); } });
-            scratchCanvas.addEventListener('touchend', () => isDrawing = false);
-
-            const checkScratchProgress = () => {
-                if (!scratchCtx || scratchCanvas.width === 0 || scratchCanvas.height === 0) return;
-                // Throttle pixel checking for performance
-                if (Math.random() > 0.3) return;
-                const imgData = scratchCtx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height);
-                let transparentPixels = 0;
-                for (let i = 3; i < imgData.data.length; i += 16) {
-                    if (imgData.data[i] === 0) transparentPixels++;
-                }
-                const percent = Math.round((transparentPixels / (imgData.data.length / 16)) * 100);
-                scratchPercentEl.innerText = `${percent}%`;
-
-                if (percent >= 35) {
-                    ch2NextBtn.disabled = false;
-                    ch2NextBtn.className = "py-2.5 px-6 rounded-full bg-gradient-to-r from-amber-400 to-rose-500 text-slate-950 font-bold text-xs tracking-wider uppercase transition-all shadow-lg hover:shadow-amber-500/30 cursor-pointer glow-heart";
-                    ch2NextBtn.innerText = "Continue to Promises 💌";
-                }
-            };
-
-            ch2NextBtn.addEventListener('click', () => {
-                goToChapter(3);
-            });
-
-            // --- CHAPTER 3: LANTERN LOGIC ---
-            const lanternBtns = document.querySelectorAll('.lantern-btn');
-            const lanternQuoteText = document.getElementById('lantern-quote-text');
-            const ch3NextBtn = document.getElementById('ch3-next');
-            let releasedLanterns = 0;
-
-            lanternBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    if (btn.classList.contains('released')) return;
-                    
-                    btn.classList.add('released', 'opacity-50', 'scale-95');
-                    btn.querySelector('div').innerText = "✨";
-                    
-                    const promise = btn.getAttribute('data-promise');
-                    lanternQuoteText.innerText = `"${promise}"`;
-
-                    releasedLanterns++;
-                    playSparkleChime(700 + releasedLanterns * 200);
-
-                    // Launch lantern floating particle into canvas
-                    createFloatingLanternParticle();
-
-                    ch3NextBtn.innerText = `Released (${releasedLanterns}/3 Lanterns)`;
-                    if (releasedLanterns === 3) {
-                        ch3NextBtn.disabled = false;
-                        ch3NextBtn.className = "mt-6 w-full py-3 rounded-full bg-gradient-to-r from-pink-500 to-amber-400 text-slate-950 font-bold text-xs tracking-wider uppercase transition-all shadow-lg hover:shadow-pink-500/30 cursor-pointer glow-heart";
-                        ch3NextBtn.innerText = "Open My Final Question 💖";
-                    }
-                });
-            });
-
-            ch3NextBtn.addEventListener('click', () => {
-                goToChapter(4);
-            });
-
-            // --- CHAPTER 4: HOLD YES BUTTON LOGIC ---
-            const holdBtn = document.getElementById('hold-yes-btn');
-            const holdProgress = document.getElementById('hold-progress');
-            const finaleScreen = document.getElementById('finale-screen');
-            const gentleMaybeBtn = document.getElementById('gentle-maybe-btn');
-            const maybeResponse = document.getElementById('maybe-response');
-
-            let holdTimer = null;
-            let holdStartTime = 0;
-            const requiredHoldTime = 1800; // 1.8 seconds
-
-            const startHold = (e) => {
-                e.preventDefault();
-                holdStartTime = Date.now();
-                holdProgress.style.width = '100%';
-                holdProgress.style.transition = `width ${requiredHoldTime}ms linear`;
-
-                playSparkleChime(500);
-
-                holdTimer = setTimeout(() => {
-                    // Success!
-                    playSparkleChime(1046.5); // High C
-                    triggerFinale();
-                }, requiredHoldTime);
-            };
-
-            const cancelHold = () => {
-                clearTimeout(holdTimer);
-                holdProgress.style.transition = 'width 200ms ease-out';
-                holdProgress.style.width = '0%';
-            };
-
-            holdBtn.addEventListener('mousedown', startHold);
-            holdBtn.addEventListener('mouseup', cancelHold);
-            holdBtn.addEventListener('mouseleave', cancelHold);
-
-            holdBtn.addEventListener('touchstart', startHold);
-            holdBtn.addEventListener('touchend', cancelHold);
-
-            gentleMaybeBtn.addEventListener('click', () => {
-                maybeResponse.classList.remove('hidden');
-                playSparkleChime(350);
-            });
-
-            const triggerFinale = () => {
-                finaleScreen.classList.remove('pointer-events-none');
-                finaleScreen.classList.add('opacity-100');
-                launchFireworks();
-            };
-
-            // --- BACKGROUND CANVAS ENGINE ---
-            const starCanvas = document.getElementById('star-canvas');
-            const ctx = starCanvas.getContext('2d');
-
-            let width = starCanvas.width = window.innerWidth;
-            let height = starCanvas.height = window.innerHeight;
+            // Background Hearts & Paper Flying Particles
+            const canvas = document.getElementById('fx-canvas');
+            const ctx = canvas.getContext('2d');
+            let w = canvas.width = window.innerWidth;
+            let h = canvas.height = window.innerHeight;
 
             window.addEventListener('resize', () => {
-                width = starCanvas.width = window.innerWidth;
-                height = starCanvas.height = window.innerHeight;
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
             });
 
-            // Particle System
-            const stars = [];
-            for (let i = 0; i < 120; i++) {
-                stars.push({
-                    x: Math.random() * width,
-                    y: Math.random() * height,
-                    size: Math.random() * 1.5 + 0.5,
-                    alpha: Math.random(),
-                    speed: Math.random() * 0.02 + 0.005
+            const particles = [];
+            for (let i = 0; i < 40; i++) {
+                particles.push({
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    size: Math.random() * 3 + 1,
+                    speedY: Math.random() * 0.5 + 0.2,
+                    alpha: Math.random()
                 });
             }
 
-            const lanterns = [];
-            function createFloatingLanternParticle() {
-                lanterns.push({
-                    x: Math.random() * (width - 100) + 50,
-                    y: height + 20,
-                    speed: Math.random() * 1.5 + 1,
-                    size: Math.random() * 12 + 10,
-                    alpha: 1
-                });
-            }
-
-            const fireworks = [];
-            function launchFireworks() {
-                setInterval(() => {
-                    const cx = Math.random() * width;
-                    const cy = Math.random() * (height / 2);
-                    for (let i = 0; i < 40; i++) {
-                        const angle = Math.random() * Math.PI * 2;
-                        const speed = Math.random() * 4 + 2;
-                        fireworks.push({
-                            x: cx,
-                            y: cy,
-                            vx: Math.cos(angle) * speed,
-                            vy: Math.sin(angle) * speed,
-                            alpha: 1,
-                            color: `hsl(${Math.random() * 60 + 330}, 100%, 75%)`
-                        });
-                    }
-                }, 600);
-            }
-
-            function renderBackground() {
-                ctx.clearRect(0, 0, width, height);
-
-                // Render twinkling stars
-                stars.forEach(s => {
-                    s.alpha += s.speed;
-                    if (s.alpha > 1 || s.alpha < 0) s.speed = -s.speed;
-                    ctx.fillStyle = `rgba(244, 114, 182, ${Math.abs(s.alpha)})`;
-                    ctx.beginPath();
-                    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-                    ctx.fill();
-                });
-
-                // Render floating promise lanterns
-                for (let i = lanterns.length - 1; i >= 0; i--) {
-                    const l = lanterns[i];
-                    l.y -= l.speed;
-                    ctx.fillStyle = `rgba(251, 191, 36, ${l.alpha})`;
-                    ctx.shadowBlur = 15;
-                    ctx.shadowColor = '#fbbf24';
-                    ctx.beginPath();
-                    ctx.arc(l.x, l.y, l.size, 0, Math.PI * 2);
-                    ctx.fill();
-                    ctx.shadowBlur = 0;
-
-                    if (l.y < -30) lanterns.splice(i, 1);
+            const hearts = [];
+            function triggerHearts() {
+                for (let i = 0; i < 50; i++) {
+                    hearts.push({
+                        x: Math.random() * w,
+                        y: h + 20,
+                        vx: (Math.random() - 0.5) * 4,
+                        vy: -(Math.random() * 5 + 3),
+                        size: Math.random() * 15 + 10,
+                        alpha: 1,
+                        color: `hsl(${Math.random() * 40 + 330}, 100%, 75%)`
+                    });
                 }
+            }
 
-                // Render fireworks
-                for (let i = fireworks.length - 1; i >= 0; i--) {
-                    const f = fireworks[i];
-                    f.x += f.vx;
-                    f.y += f.vy;
-                    f.alpha -= 0.015;
-                    ctx.fillStyle = f.color;
-                    ctx.globalAlpha = Math.max(0, f.alpha);
+            function animate() {
+                ctx.clearRect(0, 0, w, h);
+
+                // Gentle background stars
+                particles.forEach(p => {
+                    p.y -= p.speedY;
+                    if (p.y < 0) p.y = h;
+                    ctx.fillStyle = `rgba(244, 114, 182, ${p.alpha})`;
                     ctx.beginPath();
-                    ctx.arc(f.x, f.y, 2.5, 0, Math.PI * 2);
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                     ctx.fill();
+                });
+
+                // Celebratory Hearts
+                for (let i = hearts.length - 1; i >= 0; i--) {
+                    const heart = hearts[i];
+                    heart.x += heart.vx;
+                    heart.y += heart.vy;
+                    heart.alpha -= 0.01;
+
+                    ctx.fillStyle = heart.color;
+                    ctx.globalAlpha = Math.max(0, heart.alpha);
+                    ctx.font = `${heart.size}px serif`;
+                    ctx.fillText('❤️', heart.x, heart.y);
                     ctx.globalAlpha = 1;
 
-                    if (f.alpha <= 0) fireworks.splice(i, 1);
+                    if (heart.alpha <= 0) hearts.splice(i, 1);
                 }
 
-                requestAnimationFrame(renderBackground);
+                requestAnimationFrame(animate);
             }
 
-            renderBackground();
+            animate();
         });
     </script>
 </body>
